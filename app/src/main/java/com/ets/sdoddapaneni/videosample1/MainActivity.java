@@ -343,19 +343,10 @@ public class MainActivity extends Activity {
                 anim1.setRepeatMode(Animation.REVERSE);
                 anim1.setRepeatCount(Animation.INFINITE);
                 countDownTimer.startAnimation(anim1);
-
-                Camera.Parameters parameters = mCamera.getParameters();
-                // Set all kind of stuffs here..
-                parameters.setColorEffect(Camera.Parameters.EFFECT_SEPIA);
-                mCamera.setParameters(parameters);
             }
         }
 
         public void onFinish() {
-            Camera.Parameters parameters = mCamera.getParameters();
-            parameters.setColorEffect(Camera.Parameters.EFFECT_NONE);
-            mCamera.setParameters(parameters);
-
             cdt1.cancel();
             cdt2.cancel();
             redimg.setVisibility(View.INVISIBLE);
