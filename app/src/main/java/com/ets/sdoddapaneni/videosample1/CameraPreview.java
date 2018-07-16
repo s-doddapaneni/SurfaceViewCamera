@@ -1,18 +1,15 @@
 package com.ets.sdoddapaneni.videosample1;
 
 import java.io.IOException;
-import java.security.Policy;
 
 import android.content.Context;
 import android.hardware.Camera;
 import android.util.Log;
 import android.view.Display;
-import android.view.OrientationEventListener;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import static android.content.Context.WINDOW_SERVICE;
 

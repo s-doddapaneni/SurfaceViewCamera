@@ -1,30 +1,22 @@
 package com.ets.sdoddapaneni.videosample1;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
+import android.graphics.Color;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.media.CamcorderProfile;
-import android.media.ExifInterface;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Display;
@@ -37,8 +29,8 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,7 +41,6 @@ public class MainActivity extends Activity {
     private MediaRecorder mediaRecorder;
     private Button capture, switchCamera, photoBtn;
     private Context myContext;
-    private FrameLayout cameraPreview;
     private boolean cameraFront = false;
     private TextView countDownTextView, countDownTimer;
     Camera.PictureCallback rawCallback;
@@ -68,6 +59,7 @@ public class MainActivity extends Activity {
         myContext = this;
         initialize();
     }
+
 
     private int findFrontFacingCamera() {
         int cameraId = -1;
@@ -123,7 +115,7 @@ public class MainActivity extends Activity {
 
     public void initialize() {
 
-        cameraPreview = (FrameLayout) findViewById(R.id.camera_preview);
+        FrameLayout cameraPreview = (FrameLayout) findViewById(R.id.camera_preview);
 
         countDownTextView = (TextView) findViewById(R.id.countDownTextView);
         countDownTimer = (TextView) findViewById(R.id.countDownTimer20);
@@ -351,10 +343,19 @@ public class MainActivity extends Activity {
                 anim1.setRepeatMode(Animation.REVERSE);
                 anim1.setRepeatCount(Animation.INFINITE);
                 countDownTimer.startAnimation(anim1);
+
+                Camera.Parameters parameters = mCamera.getParameters();
+                // Set all kind of stuffs here..
+                parameters.setColorEffect(Camera.Parameters.EFFECT_SEPIA);
+                mCamera.setParameters(parameters);
             }
         }
 
         public void onFinish() {
+            Camera.Parameters parameters = mCamera.getParameters();
+            parameters.setColorEffect(Camera.Parameters.EFFECT_NONE);
+            mCamera.setParameters(parameters);
+
             cdt1.cancel();
             cdt2.cancel();
             redimg.setVisibility(View.INVISIBLE);
